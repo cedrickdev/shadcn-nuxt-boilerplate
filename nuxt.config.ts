@@ -1,22 +1,42 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["shadcn-nuxt"],
-  shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
-    prefix: "",
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
-    componentDir: "./components/ui",
+
+  modules: [
+    "@unocss/nuxt",
+    "shadcn-nuxt",
+    "@vueuse/nuxt",
+    "@nuxt/eslint",
+    "@nuxt/icon",
+    "@pinia/nuxt",
+    "@nuxtjs/color-mode",
+  ],
+
+  css: ["@unocss/reset/tailwind.css"],
+
+  colorMode: {
+    classSuffix: "",
   },
-  css: ["~/assets/css/tailwind.css"],
-  vite: {
-    plugins: [tailwindcss()],
+
+  features: {
+    // For UnoCSS
+    inlineStyles: false,
   },
+
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
+
+  routeRules: {
+    "/components": { redirect: "/components/accordion" },
+    "/settings": { redirect: "/settings/profile" },
+  },
+
+  imports: {
+    dirs: ["./lib"],
+  },
+
+  compatibilityDate: "2024-12-14",
 });
